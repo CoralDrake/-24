@@ -15,7 +15,7 @@ style =font.Font(weight='bold')
 
 def back():
     top.destroy()
-    import mainn
+    import menu
 
 
 
