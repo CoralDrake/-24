@@ -18,57 +18,57 @@ top.resizable(False,False)
 
 style = font.Font(weight='bold')
 
-descrip_font = tkFont.Font(family="Calibri", size= 10,
+descrip_font = tkFont.Font(family="Calibri", size=10,
                            weight=tkFont.NORMAL)
 
 fontObj = tkFont.Font(size=36, weight='bold')
  
 date = dt.datetime.now()
 
-menu = tk.Frame(top, bg='burlywood3',padx=266,pady=77)
-inventory = tk.Frame(top,bg='burlywood3')
-support = tk.Frame(top,bg='burlywood3')
-analytics = tk.Frame(top,bg="burlywood3")
+#Frames/Interfaces
+menu = tk.Frame(top, bg='burlywood3', padx=266, pady=77)
+inventory = tk.Frame(top, bg='burlywood3')
+support = tk.Frame(top, bg='burlywood3')
+analytics = tk.Frame(top, bg="burlywood3")
 
-menu.grid(row=0,column=0,sticky="nsew")
-inventory.grid(row=0,column=0,sticky="nsew")
-support.grid(row=0,column=0,sticky="nsew")
-analytics.grid(row=0,column=0,sticky="nsew")
+menu.grid(row=0, column=0, sticky="nsew")
+inventory.grid(row=0, column=0, sticky="nsew")
+support.grid(row=0, column=0, sticky="nsew")
+analytics.grid(row=0, column=0, sticky="nsew")
 
-title= Label(menu,text="BayTracker", 
-             bg="burlywood3", font= fontObj)
+#Menu Frame/Interface
+title= Label(menu, text="BayTracker", 
+             bg="burlywood3", font=fontObj)
 title.pack(pady=20,padx=1)
 
-
-inv = Button(menu,text="Inventory", font= style,
+#Menu Buttons
+inv = Button(menu, text="Inventory", font=style,
                 command=lambda:inventory.tkraise())
 inv.pack(pady=5)
 
-
-
-spprt = Button(menu,text="Support", font = style,
+spprt = Button(menu, text="Support", font=style,
                command=lambda:support.tkraise())
 spprt.pack(pady=15)
 
-ayltics = Button(menu,text="Analytics", font=style,
+ayltics = Button(menu, text="Analytics", font=style,
                         command=lambda:analytics.tkraise())
 ayltics.pack(pady=10)
 
-time = Label(menu, text=f"{date:%B %d %Y}", font = style,
+time = Label(menu, text=f"{date:%B %d %Y}", font=style,
             background="burlywood3")
 time.pack()
-#Inventory
+#Inventory Frame/Interface
 
-tree_view = ttk.Treeview(inventory,show="headings",
+tree_view = ttk.Treeview(inventory, show="headings",
                     height=7)
 
 
 
-inv_title = Label(inventory,text="Inventory",
-                  font= fontObj, bg="burlywood3")
+inv_title = Label(inventory, text="Inventory",
+                  font=fontObj, bg="burlywood3")
 inv_title.pack(pady=5)
 
-tree_view['columns'] = ("Name","ID",'QTY')
+tree_view['columns'] = ("Name", "ID", 'QTY')
 
 tree_view.column("Name", anchor=CENTER)
 tree_view.column("ID", anchor=CENTER)
@@ -78,8 +78,8 @@ tree_view.heading("Name", text="Name")
 tree_view.heading("ID", text="ID")
 tree_view.heading("QTY", text='QTY')
 
-#Efficient Table
-veges =[ 
+#Multi-Dimensional List
+veges = [ 
 ['Tomato',1,''],
 ['Cucumber',2,''],
 ['Silver Beat',3,''],
@@ -92,14 +92,14 @@ veges =[
 ['Parsnip',10,'']
 ]
 
-
 for records in veges:
-   tree_view.insert('','end',open=True,text='',values=(records[0],records[1],
-                                                       records[2]))
+   tree_view.insert('','end', open=True, text='',
+                    values = (records[0], records[1],
+                    records[2]))
 
 tree_view.pack()
 
-
+#Edit Quantity
 def edit_qty(event):
     selected_item = tree_view.selection()[0]
     column = tree_view.identify_column(event.x)
@@ -114,9 +114,10 @@ def edit_qty(event):
         entry.insert(0, qty)
 
         
-        def save_qty(event):
+        def save_qty():
             new_qty = entry.get()
-            tree_view.item(selected_item, values=(tree_view.item(selected_item, "values")[0], tree_view.item(selected_item, "values")[1], new_qty))
+            tree_view.item(selected_item, values=(tree_view.item(selected_item, "values")[0],
+                                                  tree_view.item(selected_item, "values")[1], new_qty))
             entry.destroy()
         
         
@@ -127,20 +128,23 @@ def edit_qty(event):
 tree_view.bind('<Double-1>', edit_qty)
 
 
-inv_button = Button(inventory,text="Back", font= style,
+inv_button = Button(inventory, text="Back", font=style,
                     command=lambda:menu.tkraise())
 inv_button.pack(pady=5)
-#Support Interface
 
-spprt_title = Label(support,text="Support",font=fontObj,
+#Support Frame/Interface
+
+spprt_title = Label(support, text="Support", font=fontObj,
                     bg="burlywood3")
 spprt_title.pack()
 
 selected_vege= tk.StringVar()
-vegeschosen = ttk.Combobox(support, width= 20,
-                           state="readonly",
-                            textvariable= selected_vege )
 
+#Vegetable Selection
+vegeschosen = ttk.Combobox(support, width=20,
+                           state="readonly",
+                            textvariable=selected_vege )
+#Vegetable Options
 vegeschosen['values'] = (
                          'Tomato',
                          'Cucumber',
@@ -155,10 +159,12 @@ vegeschosen['values'] = (
 
 vegeschosen.pack()
 
-text = tk.Text(support,height=15, width= 50,
-               font= descrip_font, state= NORMAL)
+#Text Widget frame 
+text = tk.Text(support, height=15, width=50,
+               font=descrip_font, state=NORMAL)
 text.pack()
 
+#Text Varibles
 welcome = "Welcome to the support page!!!"
 
 toma = '''Tomatoes require a warm and sunny environment.
@@ -215,7 +221,7 @@ and can be harvested in Spring or late summer
 '''
 
 
-
+#Configuration of Text Widget
 def config_text():
     veg_texts = {
         "Tomato": toma,
@@ -236,47 +242,22 @@ def config_text():
         text.insert(INSERT, veg_texts[selected])
         text.config(state=DISABLED)
 
-
-apply = Button(support,text='Apply', font= style,
-             command=config_text)
+#Config
+apply = Button(support, text='Apply', font=style,
+               command=config_text)
 apply.pack() 
 
-
-
-
-#Calling
-
-
-
-
-
-
-
-
-
-def refresh():
-    menu.tkraise()
-    support.destroy()
-    support.__init__()
-  
-    
-   
-
-
-
-spprt_button = Button(support,text="Back", font= style,
-                    command=refresh)
+spprt_button = Button(support, text="Back", font=style,
+                      command=lambda:menu.tkraise())
 spprt_button.pack(pady=5)
 
+#Analytics Frame/Interface
 
-#Analytics
-  
-ayltics_title = Label(analytics,text="Analytics",
+ayltics_title = Label(analytics, text="Analytics",
                   font= fontObj, bg="burlywood3")
 ayltics_title.pack()
 
-
-
+#Graph
 def plot():
     fig = Figure(figsize =(3,3),
                  dpi=100)
@@ -298,12 +279,10 @@ def plot():
 
     Canvas.get_tk_widget().pack()
 
-
-
 plot()
 
-ayltcs_button = Button(analytics,text="Back",font=style,
-                    command=lambda:menu.tkraise())
+ayltcs_button = Button(analytics, text="Back", font=style,
+                       command=lambda:menu.tkraise())
 ayltcs_button.pack()  
 
 
