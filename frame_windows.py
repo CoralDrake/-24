@@ -29,12 +29,10 @@ date = dt.datetime.now()
 menu = tk.Frame(top, bg='burlywood3', padx=266, pady=77)
 inventory = tk.Frame(top, bg='burlywood3')
 support = tk.Frame(top, bg='burlywood3')
-analytics = tk.Frame(top, bg="burlywood3")
 
 menu.grid(row=0, column=0, sticky="nsew")
 inventory.grid(row=0, column=0, sticky="nsew")
 support.grid(row=0, column=0, sticky="nsew")
-analytics.grid(row=0, column=0, sticky="nsew")
 
 #Menu Frame/Interface
 title= Label(menu, text="BayTracker", 
@@ -50,9 +48,6 @@ spprt = Button(menu, text="Support", font=style,
                command=lambda:support.tkraise())
 spprt.pack(pady=15)
 
-ayltics = Button(menu, text="Analytics", font=style,
-                        command=lambda:analytics.tkraise())
-ayltics.pack(pady=10)
 
 time = Label(menu, text=f"{date:%B %d %Y}", font=style,
             background="burlywood3")
@@ -109,12 +104,12 @@ def edit_qty(event):
         qty = tree_view.item(selected_item, "values")[2]
 
         
-        entry = tk.Entry(inventory, width=10)
-        entry.place(x=x, y=y + 100) 
+        entry = tk.Entry(inventory, width=10, bd=5, highlightbackgorund='burleywood2')
+        entry.place(x=260, y=250) 
         entry.insert(0, qty)
 
         
-        def save_qty():
+        def save_qty(event):
             new_qty = entry.get()
             tree_view.item(selected_item, values=(tree_view.item(selected_item, "values")[0],
                                                   tree_view.item(selected_item, "values")[1], new_qty))
@@ -251,39 +246,6 @@ spprt_button = Button(support, text="Back", font=style,
                       command=lambda:menu.tkraise())
 spprt_button.pack(pady=5)
 
-#Analytics Frame/Interface
-
-ayltics_title = Label(analytics, text="Analytics",
-                  font= fontObj, bg="burlywood3")
-ayltics_title.pack()
-
-#Graph
-def plot():
-    fig = Figure(figsize =(3,3),
-                 dpi=100)
-    y = [i*2 for i in range(100)]
-    
-    plot1= fig.add_subplot(111)
-
-    plot1.plot(y)
-
-    Canvas= FigureCanvasTkAgg(fig,
-                              master=analytics)
-    Canvas.draw()
-
-    Canvas.get_tk_widget().pack()
-
-    toolbar= NavigationToolbar2Tk(Canvas,
-                                  analytics)
-    toolbar.update()
-
-    Canvas.get_tk_widget().pack()
-
-plot()
-
-ayltcs_button = Button(analytics, text="Back", font=style,
-                       command=lambda:menu.tkraise())
-ayltcs_button.pack()  
 
 
 text.insert(tk.END,welcome)
