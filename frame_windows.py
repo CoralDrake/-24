@@ -104,8 +104,9 @@ def edit_qty(event):
         qty = tree_view.item(selected_item, "values")[2]
 
         
-        entry = tk.Entry(inventory, width=10, bd=5, highlightbackgorund='burleywood2')
-        entry.place(x=260, y=250) 
+        entry = tk.Entry(inventory, width=10, bd=3, highlightthickness=5)
+        entry.config(highlightbackground="burlywood1", highlightcolor="burlywood1")
+        entry.place(x=600, y=250) 
         entry.insert(0, qty)
 
         
