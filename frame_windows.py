@@ -5,10 +5,7 @@ import tkinter.font as tkFont
 from tkinter import ttk
 import datetime as dt
 from tkinter.messagebox import askyesno
-import math
-from matplotlib.figure import Figure 
-from matplotlib.backends.backend_tkagg import (FigureCanvasTkAgg,  
-NavigationToolbar2Tk) 
+
 
 
 top=tk.Tk()
@@ -123,7 +120,12 @@ def edit_qty(event):
 
 tree_view.bind('<Double-1>', edit_qty)
 
-
+def remove_one():
+  tree_view.selection()[0]
+  tree_view.delete(x)
+ 
+rmv_button = Button(inventroy, text='Remove', font=style,
+                    command=remove_one)
 inv_button = Button(inventory, text="Back", font=style,
                     command=lambda:menu.tkraise())
 inv_button.pack(pady=5)
@@ -161,7 +163,7 @@ text = tk.Text(support, height=15, width=50,
 text.pack()
 
 #Text Varibles
-welcome = "Welcome to the support page!!!"
+welcome = "Welcome to the support page!"
 
 toma = '''Tomatoes require a warm and sunny environment.
 It's period of growing season September to January.
